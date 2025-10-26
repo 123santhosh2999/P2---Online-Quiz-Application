@@ -1,0 +1,16 @@
+<!-- src/main/resources/templates/index.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thymeleaf Demo</title>
+</head>
+<body>
+  <h1 th:text="${message}">placeholder</h1>
+
+  <form th:action="@{/echo}" method="post">
+    <input name="name" placeholder="Your name" />
+    <button type="submit">Say Hi</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout}">
+<head>
+    <title>Quiz Results - Quiz Application</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- Result Header -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h1 class="display-4">Quiz Completed!</h1>
+                <h3 th:text="${attempt.quiz.title}">Quiz Title</h3>
+            </div>
+        </div>
+
+        <!-- Score Card -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <div class="card text-center" th:classappend="${percentage >= 80} ? 'bg-success text-white' : 
+                         (${percentage >= 60} ? 'bg-warning' : 'bg-danger text-white')">
+                    <div class="card-body">
+                        <h2 class="card-title">Your Score</h2>
+                        <div class="display-3 mb-3">
+                            <span th:text="${attempt.scoreObtained}">85</span> / 
+                            <span th:text="${attempt.totalScore}">100</span>
+                        </div>
+                        <h3 th:text="${#numbers.formatDecimal(percentage, 1, 1)} + '%'">85.0%</h3>
+                        <p class="mb-0" th:if="${percentage >= 80}">Excellent work! 🎉</p>
+                        <p class="mb-0" th:if="${percentage >= 60 && percentage < 80}">Good job! 👍</p>
+                        <p class="mb-0" th:if="${percentage < 60}">Keep practicing! 📚</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Stats -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-question-circle fa-2x text-primary mb-2"></i>
+                        <h5>Questions</h5>
+                        <h4 th:text="${#lists.size(userAnswers)}">10</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                        <h5>Correct</h5>
+                        <h4 th:text="${#lists.size(#lists.select(userAnswers, 'isCorrect'))}">8</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-times-circle fa-2x text-danger mb-2"></i>
+                        <h5>Incorrect</h5>
+                        <h4 th:text="${#lists.size(userAnswers) - #lists.size(#lists.select(userAnswers, 'isCorrect'))}">2</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-clock fa-2x text-info mb-2"></i>
+                        <h5>Time Taken</h5>
+                        <h4 th:text="${T(java.time.Duration).between(attempt.startTime, attempt.endTime).toMinutes()} + ' min'">25 min</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Results -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Detailed Results</h5>
+                    </div>
+                    <div class="card-body">
+                        <div th:each="userAnswer, iterStat : ${userAnswers}" class="border-bottom pb-3 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6>
+                                        Question <span th:text="${iterStat.index + 1}">1</span>
+                                        <span th:if="${userAnswer.isCorrect}" class="badge bg-success ms-2">
+                                            <i class="fas fa-check"></i> Correct
+                                        </span>
+                                        <span th:unless="${userAnswer.isCorrect}" class="badge bg-danger ms-2">
+                                            <i class="fas fa-times"></i> Incorrect
+                                        </span>
+                                    </h6>
+                                    <p th:text="${userAnswer.question.questionText}">Question text</p>
+                                    
+                                    <div class="mt-2">
+                                        <strong>Your Answer:</strong>
+                                        <span th:text="${userAnswer.selectedAnswer.answerText}" 
+                                              th:classappend="${userAnswer.isCorrect} ? 'text-success' : 'text-danger'">
+                                            Selected answer
+                                        </span>
+                                    </div>
+                                    
+                                    <div th:unless="${userAnswer.isCorrect}" class="mt-1">
+                                        <strong>Correct Answer:</strong>
+                                        <span th:each="answer : ${userAnswer.question.answers}" 
+                                              th:if="${answer.isCorrect}" 
+                                              class="text-success"
+                                              th:text="${answer.answerText}">
+                                            Correct answer
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row">
+            <div class="col-12 text-center">
+                <a th:href="@{/quiz/list}" class="btn btn-primary me-3">
+                    <i class="fas fa-list me-2"></i>Browse More Quizzes
+                </a>
+                <a th:href="@{/results/my-results}" class="btn btn-secondary me-3">
+                    <i class="fas fa-history me-2"></i>View All Results
+                </a>
+                <a th:href="@{/dashboard}" class="btn btn-outline-primary">
+                    <i class="fas fa-home me-2"></i>Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
