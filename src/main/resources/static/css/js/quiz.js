@@ -20,8 +20,7 @@ function initializeQuizTaking() {
     totalQuestions = document.querySelectorAll('.question-container').length;
     
     // Initialize timer
-    const timeLimitElement = document.querySelector('[data-time-limit]');
-    if (timeLimitElement && typeof timeLimit !== 'undefined') {
+    if (typeof timeLimit !== 'undefined' && timeLimit !== null) {
         timeRemaining = timeLimit * 60; // Convert to seconds
         startTimer();
     }
@@ -30,6 +29,10 @@ function initializeQuizTaking() {
     setupQuestionNavigation();
     updateProgressBar();
     updateNavigationButtons();
+
+    // Restore previously selected answers (if any)
+    loadAnswersFromStorage();
+    updateQuestionNavigation();
     
     // Auto-save answers
     setupAutoSave();

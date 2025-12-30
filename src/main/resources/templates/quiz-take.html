@@ -121,8 +121,7 @@
         </div>
 
         <script th:inline="javascript">
-            const timeLimit = [[${quiz.timeLimit}]]; // in minutes
-            const totalQuestions = [[${#lists.size(questions)}]];
+            const timeLimit = /*[[${quiz.timeLimit}]]*/ 0; // in minutes
         </script>
     </div>
 </body>

@@ -144,7 +144,10 @@ public class QuizController {
         }
 
         List<UserAnswer> userAnswers = quizAttemptService.getAttemptAnswers(attemptId);
-        double percentage = (double) attempt.getScoreObtained() / attempt.getTotalScore() * 100;
+        double percentage = 0.0;
+        if (attempt.getTotalScore() != null && attempt.getTotalScore() > 0 && attempt.getScoreObtained() != null) {
+            percentage = (double) attempt.getScoreObtained() / attempt.getTotalScore() * 100;
+        }
 
         model.addAttribute("attempt", attempt);
         model.addAttribute("userAnswers", userAnswers);

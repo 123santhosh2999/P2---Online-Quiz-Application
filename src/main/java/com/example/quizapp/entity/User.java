@@ -84,8 +84,8 @@ public class User {
     
     public List<QuizAttempt> getQuizAttempts() { return quizAttempts; }
     public void setQuizAttempts(List<QuizAttempt> quizAttempts) { this.quizAttempts = quizAttempts; }
-}
 
-enum Role {
-    USER, ADMIN
+    public static enum Role {
+        USER, ADMIN
+    }
 }

@@ -1,15 +1,14 @@
 package com.example.quizapp.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.example.quizapp.entity.Question;
 import com.example.quizapp.entity.Quiz;
-import com.example.quizapp.repository.QuestionRepository;
 import com.example.quizapp.repository.QuizRepository;
 
 @Service
@@ -18,9 +17,6 @@ public class QuizService {
 
     @Autowired
     private QuizRepository quizRepository;
-
-    @Autowired
-    private QuestionRepository questionRepository;
 
     public List<Quiz> getAllActiveQuizzes() {
         return quizRepository.findByActiveTrue();
