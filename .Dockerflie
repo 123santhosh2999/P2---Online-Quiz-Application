@@ -6,11 +6,12 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY . .
 RUN mvn clean package -DskipTests
-docker logs <container_name>
+Listening on port <PORT>
+
 
 # Run stage
-FROM eclipse-temurin:17-jdk
+JAVA_VERSION=17
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8081
+EXPOSE 8088
 ENTRYPOINT ["java","-jar","app.jar"]
