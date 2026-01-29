@@ -6,13 +6,10 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY . .
 RUN mvn clean package -DskipTests
-Listening on port <PORT>
-
 
 # Run stage
-JAVA_VERSION=17
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
- server.port=${PORT:8080}
-java -jar target/*.jar
-
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","app.jar"]
