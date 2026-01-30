@@ -6,6 +6,10 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY . .
 RUN mvn clean package -DskipTests
+docker-compose down
+docker-compose build --no-cache
+docker-compose up
+
 
 # Run stage
 FROM eclipse-temurin:17-jdk
