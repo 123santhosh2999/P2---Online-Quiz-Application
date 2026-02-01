@@ -34,7 +34,8 @@ public class QuestionService {
     }
 
     public List<Answer> getAnswersByQuestionId(Long questionId) {
-        
+        questionRepository.findById(questionId);
+
     }
 
     public Answer saveAnswer(Answer answer) {
