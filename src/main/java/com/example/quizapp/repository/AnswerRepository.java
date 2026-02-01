@@ -1,18 +1,12 @@
 package com.example.quizapp.repository;
 
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
-
 import com.example.quizapp.entity.Answer;
+import com.example.quizapp.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
+import java.util.Optional;
+
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
     Optional<Answer> findByUser(User user);
-}
-
-
 }
