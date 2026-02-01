@@ -12,6 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeDashboard();
     initializeSearch();
 });
+const usernameRegex = /^[a-zA-Z0-9_.]+$/;
+
+if (!usernameRegex.test(username)) {
+  setError("Username must not contain spaces");
+  return;
+}
 
 // Quiz Taking Functionality
 function initializeQuizTaking() {
