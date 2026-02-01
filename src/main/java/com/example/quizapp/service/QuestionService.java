@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.example.quizapp.entity.Answer;
@@ -34,8 +35,12 @@ public class QuestionService {
     }
 
     public List<Answer> getAnswersByQuestionId(Long questionId) {
-        questionRepository.findById(questionId);
 
+        if (questionRepository.existsById(questionId)) {
+            return answerRepository.findByQuestionId(questionId);
+        }
+
+        return Collections.emptyList();
     }
 
     public Answer saveAnswer(Answer answer) {
