@@ -1,6 +1,8 @@
 package com.example.quizapp.entity;
 
 import javax.persistence.*;
+import com.example.quizapp.entity.User;
+
 
 @Entity
 @Table(name = "answers")
