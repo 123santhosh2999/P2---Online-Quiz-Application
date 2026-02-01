@@ -1,4 +1,11 @@
 // Quiz Application JavaScript
+const payload = {
+  firstName: firstName.trim(),
+  lastName: lastName.trim(),
+  username: username.trim(),
+  email: email.trim(),
+  password
+};
 
 // Global variables
 let currentQuestion = 0;
