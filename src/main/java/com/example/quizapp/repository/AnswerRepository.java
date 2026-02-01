@@ -10,6 +10,9 @@ import com.example.quizapp.entity.Answer;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
- Optional<User> findByUsername(String username);
+
+    Optional<Answer> findByUser(User user);
+}
+
 
 }
