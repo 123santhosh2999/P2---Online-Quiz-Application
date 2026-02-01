@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "answers")
+    
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,15 +17,16 @@ public class Answer {
     private Boolean isCorrect = false;
     
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id")         
     private Question question;
-    
+                                                                                                    
     // Constructors, getters, and setters
     public Answer() {}
     
     public Answer(String answerText, Boolean isCorrect) {
         this.answerText = answerText;
         this.isCorrect = isCorrect;
+        
     }
     
     // Getters and setters
