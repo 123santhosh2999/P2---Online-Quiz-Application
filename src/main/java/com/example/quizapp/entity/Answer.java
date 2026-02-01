@@ -16,9 +16,12 @@ public class Answer {
     @Column(name = "is_correct")
     private Boolean isCorrect = false;
     
-    @ManyToOne
-    @JoinColumn(name = "question_id")         
-    private Question question;
+   @ManyToOne
+   @JoinColumn(name = "user_id")
+   private User user;
+    Optional<Answer> findByUser(User user);
+
+
                                                                                                     
     // Constructors, getters, and setters
     public Answer() {}
